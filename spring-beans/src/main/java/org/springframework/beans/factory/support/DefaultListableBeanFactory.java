@@ -975,6 +975,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 
 		if (existingDefinition != null || containsSingleton(beanName)) {
+			//清除解析之前留下的对应beanName缓存
 			resetBeanDefinition(beanName);
 		}
 	}

@@ -1084,10 +1084,12 @@ public class JdbcTemplate extends JdbcAccessor implements JdbcOperations {
 			logger.debug("Calling stored procedure" + (sql != null ? " [" + sql  + "]" : ""));
 		}
 
+		//获取数据库连接
 		Connection con = DataSourceUtils.getConnection(obtainDataSource());
 		CallableStatement cs = null;
 		try {
 			cs = csc.createCallableStatement(con);
+			//应用用户设定的输入参数
 			applyStatementSettings(cs);
 			T result = action.doInCallableStatement(cs);
 			handleWarnings(cs);
@@ -1096,6 +1098,7 @@ public class JdbcTemplate extends JdbcAccessor implements JdbcOperations {
 		catch (SQLException ex) {
 			// Release Connection early, to avoid potential connection pool deadlock
 			// in the case when the exception translator hasn't been initialized yet.
+			//释放数据库连接避免当 异常转换器没有被初始化的时候出现潜在的连接池死锁
 			if (csc instanceof ParameterDisposer) {
 				((ParameterDisposer) csc).cleanupParameters();
 			}
@@ -1403,6 +1406,7 @@ public class JdbcTemplate extends JdbcAccessor implements JdbcOperations {
 	 * @see org.springframework.jdbc.SQLWarningException
 	 */
 	protected void handleWarnings(Statement stmt) throws SQLException {
+		//当设置为忽略警告时只尝试打印日志
 		if (isIgnoreWarnings()) {
 			if (logger.isDebugEnabled()) {
 				SQLWarning warningToLog = stmt.getWarnings();

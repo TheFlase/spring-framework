@@ -65,7 +65,8 @@ public class ContextLoaderTests {
 		MockServletContext sc = new MockServletContext("");
 		sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
 				"/org/springframework/web/context/WEB-INF/applicationContext.xml " +
-				"/org/springframework/web/context/WEB-INF/context-addition.xml");
+				"/org/springframework/web/context/WEB-INF/context-addition.xml ");
+//						+"/org/springframework/web/context/WEB-INF/web.xml");
 		ServletContextListener listener = new ContextLoaderListener();
 		ServletContextEvent event = new ServletContextEvent(sc);
 		listener.contextInitialized(event);
@@ -86,6 +87,10 @@ public class ContextLoaderTests {
 		assertThat(lb.isDestroyed()).as("Destroyed").isTrue();
 		assertThat(sc.getAttribute(contextAttr)).isNull();
 		assertThat(WebApplicationContextUtils.getWebApplicationContext(sc)).isNull();
+
+//		System.out.println("下面测试自定义功能");
+//		Object scAttribute = sc.getAttribute("myData");
+//		System.out.println("自定义属性myData的值是:"+scAttribute);
 	}
 
 	/**

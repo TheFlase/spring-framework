@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <web-app>
 	<display-name>ticket-webapp</display-name>
 	<description>Web interface for ticket application</description>
@@ -12,6 +11,10 @@
 		<listener-class>com.wrox.j2eedd.ticket.web.SessionCleanupListener</listener-class>
 	</listener>
 -->
+	<!--自定义ServletContextListener-->
+<!--	<listener>-->
+<!--		org.springframework.web.servlet.mytest.MyDataContextListener-->
+<!--	</listener>-->
 
 
 	<!-- This servlet must be loaded first to configure the log4j
@@ -36,12 +39,8 @@
   <servlet>
       	<servlet-name>boxOffice</servlet-name>
       	<servlet-class>org.springframework.framework.web.workflow.CommandServlet</servlet-class>
-  </servlet> 
- 
- 
- 
- 
-  <servlet-mapping>
+  </servlet>
+	<servlet-mapping>
         	<servlet-name>boxOffice</servlet-name>
         	<url-pattern>/*.html</url-pattern>
   </servlet-mapping>
